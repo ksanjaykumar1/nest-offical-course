@@ -51,7 +51,7 @@ export class CoffeesService {
 
   async create(coffeeDto: any) {
     const coffee = this.coffeeRepository.create(coffeeDto);
-    await this.coffeeRepository.save(coffee);
+    return await this.coffeeRepository.save(coffee);
   }
 
   async update(id: number, updateCoffeeDto: UpdateCoffeeDto) {
