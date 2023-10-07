@@ -75,3 +75,8 @@ Nest is [MIT licensed](LICENSE).
 
 ## Notes
 1. Validation Pipe convient way of enforcing validation rules to all incomming client payloads 
+2. Libraries need for using typeorm "yarn add @nestjs/typeorm typeorm pg "
+3. When using typeorm , set synchronize property to false if in production, in dev it helps synchronizing data between typeorm entites and database
+4. An entity presents a relationship between a typescript class and a database table
+5. Sync config lets TypeORM automatically generated a sql table from all classes with the @entity() decorator.
+6. 
