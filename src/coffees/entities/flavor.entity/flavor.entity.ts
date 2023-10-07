@@ -10,5 +10,5 @@ export class Flavor {
   name: string;
 
   @ManyToMany((type) => Coffee, (coffee) => coffee.flavors)
-  coffes: Coffee[];
+  coffees: Coffee[];
 }
