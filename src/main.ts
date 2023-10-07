@@ -11,10 +11,16 @@ async function bootstrap() {
 
   // ForbidNonWhitelisted will stop a request from being processed
   // if any nonwhitelisted properties are present
+  /* 1. transform property tansforms request into instance of dto
+     2. values into number , boolean etc. 
+     For example param id will be automatically converted to number if "id" is declared as number
+   */
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
   await app.listen(3000);
