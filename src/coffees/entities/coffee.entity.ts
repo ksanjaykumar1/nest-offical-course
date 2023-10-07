@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Flavor } from './flavor.entity/flavor.entity';
 
 //Each entity class represents a sql table
 // If table not present then
@@ -16,7 +23,10 @@ export class Coffee {
   @Column()
   brand: string;
 
-  // flavor should store array as JSON and make this column is optionalble
-  @Column('json', { nullable: true })
+  // // flavor should store array as JSON and make this column is optionalble
+  // @Column('json', { nullable: true })
+
+  @JoinTable()
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees)
   flavors: string[];
 }
