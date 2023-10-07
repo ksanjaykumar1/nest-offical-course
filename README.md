@@ -71,3 +71,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## Notes
+1. Validation Pipe convient way of enforcing validation rules to all incomming client payloads 
