@@ -79,4 +79,4 @@ Nest is [MIT licensed](LICENSE).
 3. When using typeorm , set synchronize property to false if in production, in dev it helps synchronizing data between typeorm entites and database
 4. An entity presents a relationship between a typescript class and a database table
 5. Sync config lets TypeORM automatically generated a sql table from all classes with the @entity() decorator.
-6. 
+6. Singleton scope is the default behavior of injectable providers in the nest
