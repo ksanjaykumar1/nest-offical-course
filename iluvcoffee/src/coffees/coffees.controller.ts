@@ -3,20 +3,20 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
-  HttpStatus,
   Param,
   Patch,
   Post,
-  Res,
+  Query,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
   @Get()
-  findAll(@Res() response) {
-    // return 'All coffees';
-    response.status(200).send('All coffees');
+  findAll(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
+    return `All coffees limit ${limit} ${offset}`;
   }
 
   //   This signifies that we're expecting a dynamic root parameter named "id"
