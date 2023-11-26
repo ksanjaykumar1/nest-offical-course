@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Flavor } from './flavor.entity';
 
 @Entity('Coffee')
 export class Coffee {
@@ -9,8 +16,7 @@ export class Coffee {
   @Column()
   brand: string;
 
-  // array is stored as json
-  // by setting nullable to true, we make flavors as optional
-  @Column('json', { nullable: true })
+  @JoinTable()
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees)
   flavors: string[];
 }
