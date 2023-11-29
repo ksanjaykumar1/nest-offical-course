@@ -181,3 +181,74 @@ won't generate the file but create a simulation. Perfect way to test files.
 
 1. Path parameters are used to identify a specific resource
 2. use Query parameters to filter or sort that resource
+3. Using **await** with **Promise.all()** lets us wait until the entire Array of Promises finishes before executing further code
+
+## TypeORM
+
+Abd **Entity** represents a relationship between a TypeScript class and a database table.
+In nest our Entities will be class decorated with @Entity() decorator.
+
+synchronize: true, allows table generation in DB using the classes with Entity decorator. Always set it to false in production.
+
+```ts
+  imports: [TypeOrmModule.forFeature([Coffee])],
+```
+
+TypeORM supports the repository design pattern, so each entity has its own repository. These repositories can be obtained from the database data source.
+
+Repository class available from TypeORM acts as abstraction over our data source and exposes a variety of useful methods to interact with record stored in our database.
+
+we can inject the UsersRepository into the UsersService using the @InjectRepository() decorator
+
+**Relations** are associations established between two or more tables. Relations are based on common fields from each table, often involving primary and foreign keys.
+
+There are three types of relations:
+
+**One-to-one** Every row in the primary table has one and only one associated row in the foreign table. Use the @OneToOne() decorator to define this type of relation.
+
+**One-to-many / Many-to-one** Every row in the primary table has one or more related rows in the foreign table. Use the @OneToMany() and @ManyToOne() decorators to define this type of relation.
+
+**Many-to-many** Every row in the primary table has many related rows in the foreign table, and every record in the foreign table has many related rows in the primary table. Use the @ManyToMany() decorator to define this type of relation.
+
+## Database transaction
+
+A database transaction symbolizes a unit of work performed withing a database management system. Transaction are a reliable way to accomplish multiple tasks independent of other transactions. there are many different strategies to handle TypeORM transactions, but we recommend QueryRunner class because it gives us full control over the transaction.
+
+## Dependency Injection
+
+Dependency injection is a technique where we delegate instantiation of dependencies to an "Inversion of Control" container.
+
+In nest application IOC container is the nestjs runtime system itself.
+
+Nestjs handles all of the heavy lifting here instead of trying to achieve Dependency injection ourselves.
+
+Example CoffeeService injection in CoffeeController.
+
+There are three steps in dependency injection process that make it all happen.
+
+1. Injector decorator declares a class that can be managed by the Nest container. This marks the class as a provider.
+2. Class is injected by calling it in the constructor
+3. Nest is aware that a class is provider because we've included in the provider in the module. which registers the class in IOC container
+
+A single instance of the provider is shared across the entire application. The instance lifetime is tied directly to the application lifecycle. Once the application has bootstrapped, all singleton providers have been instantiated. Singleton scope is used by default.
+
+Nest handles dependency inject and the correct order of injection.
+
+The providers property takes an array of providers. So far, we've supplied those providers via a list of class names. In fact, the syntax providers: [CatsService] is short-hand for the more complete syntax:
+
+```ts
+providers: [
+  {
+    provide: CatsService,
+    useClass: CatsService,
+  },
+];
+```
+
+Now that we see this explicit construction, we can understand the registration process. Here, we are clearly associating the token CatsService with the class CatsService. The short-hand notation is merely a convenience to simplify the most common use-case, where the token is used to request an instance of a class by the same name.
+
+Factory providers: useFactory#
+The useFactory syntax allows for creating providers dynamically. The actual provider will be supplied by the value returned from a factory function. The factory function can be as simple or complex as needed. A simple factory may not depend on any other providers. A more complex factory can itself inject other providers it needs to compute its result. For the latter case, the factory provider syntax has a pair of related mechanisms:
+
+The factory function can accept (optional) arguments.
+The (optional) inject property accepts an array of providers that Nest will resolve and pass as arguments to the factory function during the instantiation process. Also, these providers can be marked as optional. The two lists should be correlated: Nest will pass instances from the inject list as arguments to the factory function in the same order. The example below demonstrates this.
