@@ -23,6 +23,8 @@ export class CoffeesService {
   ) {
     const databaseHost = this.configService.get<string>('DATABASE_HOST');
     console.log(databaseHost);
+    const databaseHostMethod2 = this.configService.get('database.host');
+    console.log(databaseHostMethod2);
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
