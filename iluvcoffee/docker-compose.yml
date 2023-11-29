@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  nest-app:
+    image: nest-app:latest
+    build:
+      context: .
+    environment:
+      - DATABASE_HOST=db
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+
   db:
     image: postgres
     restart: always
