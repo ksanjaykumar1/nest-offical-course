@@ -252,3 +252,20 @@ The useFactory syntax allows for creating providers dynamically. The actual prov
 
 The factory function can accept (optional) arguments.
 The (optional) inject property accepts an array of providers that Nest will resolve and pass as arguments to the factory function during the instantiation process. Also, these providers can be marked as optional. The two lists should be correlated: Nest will pass instances from the inject list as arguments to the factory function in the same order. The example below demonstrates this.
+
+### Swagger setup
+
+1. yarn add @nestjs/swagger
+2. add the following code in main.ts
+   ```ts
+   const config = new DocumentBuilder()
+     .setTitle('Iluvcoffee')
+     .setDescription('Coffee application')
+     .setVersion('1.0')
+     .build();
+   const document = SwaggerModule.createDocument(app, config);
+   SwaggerModule.setup('api', app, document);
+   ```
+3. Enable cli-plugin https://docs.nestjs.com/openapi/cli-plugin
+4. Use @ApiTags('') with tag name inside to group the apis 
+5. 
